@@ -1,8 +1,9 @@
 
 <template>
   <div class="dashboard">
-    <GalleryForm @newImage="handleImage"></GalleryForm>
-    <h1>Mi galeria de imagenes</h1>
+    <GalleryNav></GalleryNav>
+    <!-- <GalleryForm @newImage="handleImage"></GalleryForm> -->
+    <!-- <h1>Mi galeria de imagenes</h1> -->
     <GalleryContainer></GalleryContainer>
   </div>
 </template>
@@ -11,6 +12,7 @@
     
     import {ref} from "vue"
     import GalleryForm from './components/gallery/GalleryForm.vue'
+    import GalleryNav from './components/gallery/GalleryNavBar.vue'
     import GalleryContainer from './components/gallery/GalleryContainer.vue'
 
     const gallery = ref([])
