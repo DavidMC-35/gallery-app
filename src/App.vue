@@ -1,0 +1,37 @@
+
+<template>
+  <div class="dashboard">
+    <GalleryForm @newImage="handleImage"></GalleryForm>
+    <h1>Mi galeria de imagenes</h1>
+    <GalleryContainer></GalleryContainer>
+  </div>
+</template>
+
+<script setup>
+    
+    import {ref} from "vue"
+    import GalleryForm from './components/gallery/GalleryForm.vue'
+    import GalleryContainer from './components/gallery/GalleryContainer.vue'
+
+    const gallery = ref([])
+
+    const handleImage = (newImg) => {
+      gallery.value.push({
+        //id:
+        // info:
+        url: newImg
+      })
+      console.log("Imagen guardada en galeria", gallery.value)
+    }
+    
+</script>
+
+<style scoped>
+
+  .dashboard{
+    border: 1px solid red;
+    height: 100vh;
+    width: 100%;
+  }
+
+</style>
