@@ -11,6 +11,7 @@
 <script setup>
     
     import {ref} from "vue"
+
     import GalleryForm from './components/gallery/GalleryForm.vue'
     import GalleryNav from './components/gallery/GalleryNavBar.vue'
     import GalleryContainer from './components/gallery/GalleryContainer.vue'
