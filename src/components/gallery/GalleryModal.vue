@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isOpen" class="modal" @click="closeModal">
+    <div v-if="isOpen" class="modal">
         <div class="modal-content">
             <slot></slot>
         </div>
@@ -18,9 +18,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-const closeModal = () => {
-    emit('close');
-};
+
 </script>
 
 <style scoped>

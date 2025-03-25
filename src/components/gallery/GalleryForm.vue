@@ -1,30 +1,30 @@
 <template>
-            <h2>Agregar Imagen</h2>
-            <div class="file-section">
-                <div class="upload-options">
-                    <button class="file-option" @click="handleUploadFile('subir')">Subir</button>
-                    <button class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
-                    </div>
-                <div>
-                    <input v-if="fileOption === 'subir'" type="file">
-                    <input v-else type="text" placeholder="Insertar enlace aquí">
-                </div>
+    <h2>Agregar Imagen</h2>
+    <div class="file-section">
+        <div class="upload-options">
+            <button class="file-option" @click="handleUploadFile('subir')">Subir</button>
+            <button class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
             </div>
+        <div>
+            <input v-if="fileOption === 'subir'" type="file">
+            <input v-else type="text" placeholder="Insertar enlace aquí">
+        </div>
+    </div>
 
-            <div class="field-data">
-                <label for="">Descripcion</label>
-                <textarea name="" id="description"></textarea>
-            </div>
-            
-            <div class="field-data">
-                <label for="">Autor</label>
-                <input type="text">
-            </div>
+    <div class="field-data">
+        <label for="">Descripcion</label>
+        <textarea name="" id="description"></textarea>
+    </div>
+    
+    <div class="field-data">
+        <label for="">Autor</label>
+        <input type="text">
+    </div>
 
-            <div class="">
-                <button>Cerrar</button>
-                <button>Agregar</button>
-            </div>
+    <div class="">
+        <button @click="closeModal">Cerrar</button>
+        <button>Agregar</button>
+    </div>
 </template>
 
 <script setup>
@@ -47,6 +47,10 @@ const handleFileUpload = (event) => {
         selectedFile.value = file;
         imagePreview.value = URL.createObjectURL(file);
     }
+};
+
+const closeModal = () => {
+    emit('close');
 };
 
 const submitImage = () => {

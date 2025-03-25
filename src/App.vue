@@ -2,8 +2,8 @@
 <template>
   <div class="dashboard">
     <GalleryNav @open="isModalOpen = true"></GalleryNav>    
-    <GalleryModal :isOpen="isModalOpen" @close="isModalOpen = false">
-      <GalleryForm></GalleryForm>
+    <GalleryModal :isOpen="isModalOpen" >
+      <GalleryForm @close="isModalOpen = false"></GalleryForm>
     </GalleryModal>
     <GalleryContainer></GalleryContainer>
   </div>
@@ -21,13 +21,9 @@
     const gallery = ref([])
     const isModalOpen = ref(false)
 
-    const handleImage = (newImg) => {
-      gallery.value.push({
-        //id:
-        // info:
-        url: newImg
-      })
-      console.log("Imagen guardada en galeria", gallery.value)
+    const handleFormSubmit = (data) => {
+      console.log("Datos del formulario:", data)
+      isModalOpen.value = false
     }
     
 </script>
