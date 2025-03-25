@@ -1,30 +1,32 @@
 <template>
     <h2>Agregar Imagen</h2>
-    <div class="file-section">
-        <div class="upload-options">
-            <button class="file-option" @click="handleUploadFile('subir')">Subir</button>
-            <button class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
+    <form @submit.prevent="submitForm">
+        <div class="file-section">
+            <div class="upload-options">
+                <button type="button" class="file-option" @click="handleUploadFile('subir')">Subir</button>
+                <button type="button" class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
+                </div>
+            <div>
+                <input v-if="fileOption === 'subir'" type="file" @change="handleFileChange">
+                <input v-else v-model="imageURL" type="text" placeholder="Insertar enlace aquí">
             </div>
-        <div>
-            <input v-if="fileOption === 'subir'" type="file">
-            <input v-else type="text" placeholder="Insertar enlace aquí">
         </div>
-    </div>
 
-    <div class="field-data">
-        <label for="">Descripcion</label>
-        <textarea name="" id="description"></textarea>
-    </div>
-    
-    <div class="field-data">
-        <label for="">Autor</label>
-        <input type="text">
-    </div>
+        <div class="field-data">
+            <label for="">Descripcion</label>
+            <textarea name="" v-model="description" id="description"></textarea>
+        </div>
+        
+        <div class="field-data">
+            <label for="">Autor</label>
+            <input v-model="author" type="text">
+        </div>
 
-    <div class="">
-        <button @click="closeModal">Cerrar</button>
-        <button>Agregar</button>
-    </div>
+        <div>
+            <button @click="closeModal" class="btn" id="close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/></svg></button>
+            <button type="submit">Subir</button>
+        </div>
+    </form>
 </template>
 
 <script setup>
@@ -34,30 +36,37 @@ import { defineEmits } from "vue"
 
 const emit = defineEmits(['newImage'])
 
-const fileOption = ref("")
-const imagePreview = ref(null);
-const selectedFile = ref(null);
+const fileOption = ref(""); 
+const selectedFile = ref(null); 
+const imageURL = ref(""); 
+const description = ref(""); 
+const author = ref(""); 
 
-const handleUploadFile = (type) => {
-    fileOption.value = type; 
-}
-const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-        selectedFile.value = file;
-        imagePreview.value = URL.createObjectURL(file);
-    }
-};
 
 const closeModal = () => {
     emit('close');
 };
 
-const submitImage = () => {
-    if(selectedFile){
-        emit("newImage", selectedFile)
-        imagePreview.value = null
-    }
+const handleUploadFile = (option) => {
+    fileOption.value = option
+}
+
+const handleFileChange = (event) => {
+    selectedFile.value = event.target.files[0]; 
+
+}
+
+const submitForm = () => {
+    emit("newImage", {
+        file: selectedFile.value,
+        url: imageURL.value,
+        description: description.value,
+        author: author.value
+    })
+    selectedFile.value = null;
+    imageURL.value = "";
+    description.value = "";
+    author.value = "";
 }
 
 </script>
@@ -141,6 +150,39 @@ const submitImage = () => {
 
 .field-data label{
     color: white;
+}
+
+.btn{
+    padding: 5px 10px;
+    background-color: #3b9e67;
+    border-radius: 12px;
+    border: none;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#close-btn{
+    background-color: tomato;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+#close-btn:hover svg{
+    transform: translateY(-2px);
+    transition: all 0.3s;
+
+}
+
+#close-btn svg{
+    height: 25px;
+    width: 25px;
+    transition: all 0.3s;
+
 }
 
 /* .form-container {

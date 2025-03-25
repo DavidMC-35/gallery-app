@@ -3,7 +3,7 @@
   <div class="dashboard">
     <GalleryNav @open="isModalOpen = true"></GalleryNav>    
     <GalleryModal :isOpen="isModalOpen" >
-      <GalleryForm @close="isModalOpen = false"></GalleryForm>
+      <GalleryForm @close="isModalOpen = false" @new-image="handleFormSubmit"></GalleryForm>
     </GalleryModal>
     <GalleryContainer></GalleryContainer>
   </div>
