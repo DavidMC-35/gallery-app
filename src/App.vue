@@ -1,9 +1,10 @@
 
 <template>
   <div class="dashboard">
-    <GalleryNav></GalleryNav>
-    <!-- <GalleryForm @newImage="handleImage"></GalleryForm> -->
-    <!-- <h1>Mi galeria de imagenes</h1> -->
+    <GalleryNav @open="isModalOpen = true"></GalleryNav>    
+    <GalleryModal :isOpen="isModalOpen" @close="isModalOpen = false">
+      <GalleryForm></GalleryForm>
+    </GalleryModal>
     <GalleryContainer></GalleryContainer>
   </div>
 </template>
@@ -12,11 +13,13 @@
     
     import {ref} from "vue"
 
+    import GalleryModal from "./components/gallery/GalleryModal.vue"
     import GalleryForm from './components/gallery/GalleryForm.vue'
     import GalleryNav from './components/gallery/GalleryNavBar.vue'
     import GalleryContainer from './components/gallery/GalleryContainer.vue'
 
     const gallery = ref([])
+    const isModalOpen = ref(false)
 
     const handleImage = (newImg) => {
       gallery.value.push({

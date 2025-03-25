@@ -1,53 +1,35 @@
 <template>
-    <div class="modal">
+    <div v-if="isOpen" class="modal" @click="closeModal">
         <div class="modal-content">
-            <h2>Agregar Imagen</h2>
-            <div class="file-section">
-                <div class="upload-options">
-                    <button class="file-option" @click="handleUploadFile('subir')">Subir</button>
-                    <button class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
-                    </div>
-                <div>
-                    <input v-if="fileOption === 'subir'" type="file">
-                    <input v-else type="text" placeholder="Insertar enlace aquí">
-                </div>
-            </div>
-
-            <div class="field-data">
-                <label for="">Descripcion</label>
-                <textarea name="" id="description"></textarea>
-            </div>
-            
-            <div class="field-data">
-                <label for="">Autor</label>
-                <input type="text">
-            </div>
-
-            <div class="">
-                <button>Cerrar</button>
-                <button>Agregar</button>
-            </div>
+            <slot></slot>
         </div>
-
     </div>
 </template>
 
-<script setup> 
+<script setup>
+import { defineEmits, defineProps } from 'vue';
 
-    import { ref } from 'vue';
+const props = defineProps({
+    isOpen: {
+        type: Boolean,
+        required: true,
+    },
+});
 
-    const fileOption = ref("")
+const emit = defineEmits(['close']);
 
-    const handleUploadFile = (type) => {
-        fileOption.value = type; 
-    }
-
-
+const closeModal = () => {
+    emit('close');
+};
 </script>
 
 <style scoped>
 
 .modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     height: auto;
     min-height: 400px;
     width: 600px;

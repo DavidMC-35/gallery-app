@@ -16,8 +16,12 @@
 </template>
 
 <script setup>
+
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(["open"])
 const handleAddImage = () => {
-    console.log("Abrir formulario para agregar imagen");
+    emit('open')
 };
 </script>
 
