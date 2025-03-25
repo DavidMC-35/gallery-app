@@ -34,14 +34,14 @@
 import { ref } from "vue";
 import { defineEmits } from "vue"
 
-const emit = defineEmits(['newImage'])
+const emit = defineEmits(['newImage','close'])
 
 const fileOption = ref(""); 
 const selectedFile = ref(null); 
 const imageURL = ref(""); 
 const description = ref(""); 
-const author = ref(""); 
-
+const author = ref("");
+const errors = ref(false) 
 
 const closeModal = () => {
     emit('close');
@@ -52,21 +52,59 @@ const handleUploadFile = (option) => {
 }
 
 const handleFileChange = (event) => {
-    selectedFile.value = event.target.files[0]; 
-
-}
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    imageURL.value = URL.createObjectURL(file); // Genera una URL temporal para la imagen
+  }
+};
 
 const submitForm = () => {
+    const uniqueId = Date.now(); 
+    const currentDate = new Date().toLocaleDateString()
+
+    if (!fileOption.value) {
+        alert("Por favor, selecciona si subirás una imagen o insertarás un enlace.");
+        return;
+    }
+
+    if (fileOption.value === "subir" && !selectedFile.value) {
+        alert("Por favor, selecciona un archivo.");
+        return;
+    }
+
+    if (fileOption.value === "insertar" && !imageURL.value.trim()) {
+        alert("Por favor, introduce un enlace válido.");
+        return;
+    }
+    
+    if (!description.value.trim()) {
+        alert("La descripción no puede estar vacía.");
+        return;
+    }
+
+    if (!author.value.trim()) {
+        alert("El autor no puede estar vacío.");
+        return;
+    }
+
+    const imageSrc = fileOption.value === "subir" 
+        ? URL.createObjectURL(selectedFile.value)  
+        : imageURL.value; 
+
     emit("newImage", {
-        file: selectedFile.value,
-        url: imageURL.value,
+        id:uniqueId,
+        date: currentDate,
+        file: imageSrc,
         description: description.value,
-        author: author.value
-    })
-    selectedFile.value = null;
-    imageURL.value = "";
-    description.value = "";
-    author.value = "";
+        author: author.value,
+        option:fileOption.value,    
+        })
+        
+        selectedFile.value = null;
+        imageURL.value = "";
+        description.value = "";
+        author.value = "";
 }
 
 </script>

@@ -1,13 +1,31 @@
 <template>
 <div class="gallery-container">
     <div class="gallery-grid">
-        <!-- <GalleryImage></GalleryImage> -->
+        <GalleryImage
+            v-for="(item, index) in gallery"
+            :key="item.id"
+            :id="item.id"
+            :date="item.date"
+            :file="item.file"
+            :description="item.description"
+            :author="item.author"
+            :option="item.option"
+        ></GalleryImage>
     </div>
 </div>
 </template>
 
 <script setup>
+
+    import { defineProps } from 'vue';
     import GalleryImage from './GalleryImage.vue'
+
+    const props = defineProps({
+        gallery: Array
+    })
+
+
+
 
 </script>
 

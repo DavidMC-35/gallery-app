@@ -1,18 +1,41 @@
 <template>
     <div class="gallery-image">
-        <img src="https://images.unsplash.com/photo-1742226111230-1f7620e64851?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+        <img :src="file" alt="" >
         <div class="info">
-            <p>Hola</p>
+            <p>{{ description }}</p>
+            <p>{{ author }}</p>
         </div>
     </div>
 </template>
-<script setup></script>
+
+<script setup>
+    import { defineProps } from 'vue';
+    const props = defineProps({
+    id: {
+        type: Number,
+        required: true,
+    },
+    file: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    author: {
+        type: String,
+        required: true,
+    },
+    })
+
+</script>
 
 <style scoped>
 
     .gallery-image{
-        height: 400px;
-        width: 300px;
+        height: auto;
+        width: 450px;
         background-color: lightgray;
         display: flex;
         justify-content: center;
@@ -22,8 +45,8 @@
     }
 
     .gallery-image img{
-        height: 250px;
-        width: 250px;
+        height: 350px;
+        width: 400px;
     }
 
 </style>

@@ -1,11 +1,11 @@
 
 <template>
   <div class="dashboard">
-    <GalleryNav @open="isModalOpen = true"></GalleryNav>    
+    <GalleryNav @open="isModalOpen = true"></GalleryNav>   
     <GalleryModal :isOpen="isModalOpen" >
       <GalleryForm @close="isModalOpen = false" @new-image="handleFormSubmit"></GalleryForm>
     </GalleryModal>
-    <GalleryContainer></GalleryContainer>
+    <GalleryContainer :gallery="gallery" ></GalleryContainer>
   </div>
 </template>
 
@@ -22,7 +22,9 @@
     const isModalOpen = ref(false)
 
     const handleFormSubmit = (data) => {
-      console.log("Datos del formulario:", data)
+      // console.log("Datos del formulario:", data)
+      gallery.value.push(data)
+      console.log("Datos del formulario:", gallery.value)
       isModalOpen.value = false
     }
     
