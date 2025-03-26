@@ -1,5 +1,10 @@
 <template>
     <div v-if="isOpen" class="modal">
+        <button @click="closeModal" class="close-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/>
+            </svg>
+        </button>
         <div class="modal-content">
             <slot></slot>
         </div>
@@ -18,11 +23,12 @@ const props = defineProps({
 
 const emit = defineEmits(['close']);
 
-
+const closeModal = () => {
+    emit('close');
+};
 </script>
 
 <style scoped>
-
 .modal{
     position: fixed;
     top: 50%;
@@ -30,7 +36,8 @@ const emit = defineEmits(['close']);
     transform: translate(-50%,-50%);
     height: auto;
     min-height: 400px;
-    width: 600px;
+    width: auto;
+    min-width: 500px;
     padding: 20px;
     border-radius: 12px;
     background-color: #222 ;
@@ -46,6 +53,32 @@ const emit = defineEmits(['close']);
     color: #ffffff;
 }
 
+.close-btn {
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background-color: tomato;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 5px;
+}
+
+.close-btn:hover svg {
+    transform: scale(1.1);
+    transition: all 0.3s;
+}
+
+.close-btn svg {
+    height: 20px;
+    width: 20px;
+    transition: all 0.3s;
+}
 
 .upload-options{
     /* background-color: aqua; */
@@ -102,5 +135,4 @@ const emit = defineEmits(['close']);
 .field-data label{
     color: white;
 }
-
 </style>

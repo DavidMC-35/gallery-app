@@ -34,9 +34,8 @@
             <label for="">Autor</label>
             <input v-model="author" type="text">
         </div>
-
-        <div>
-            <button @click="closeModal" class="btn" id="close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/></svg></button>
+        
+        <div class="form-buttons">
             <button type="submit" id="addBtn">Subir</button>
         </div>
     </form>
@@ -54,7 +53,6 @@ const selectedFile = ref(null);
 const imageURL = ref(""); 
 const description = ref(""); 
 const author = ref("");
-const errors = ref(false) 
 
 const closeModal = () => {
     emit('close');
@@ -270,15 +268,22 @@ textarea::placeholder {
 }
 
 #close-btn:hover svg{
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
     transition: all 0.3s;
 
 }
 
 #close-btn svg{
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     transition: all 0.3s;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
 }
 
 #addBtn{
@@ -295,9 +300,5 @@ textarea::placeholder {
 #addBtn:hover{
     background-color: #3b9e67;  
     color: #ffffff;
-    /* transition: all 0.3s ease-in-out; */
 }
-
-
-
 </style>

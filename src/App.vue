@@ -2,8 +2,8 @@
 <template>
   <div class="dashboard">
     <GalleryNav @open="isModalOpen = true"></GalleryNav>   
-    <GalleryModal :isOpen="isModalOpen" >
-      <GalleryForm @close="isModalOpen = false" @new-image="handleFormSubmit"></GalleryForm>
+    <GalleryModal :isOpen="isModalOpen" @close="isModalOpen = false">
+      <GalleryForm @new-image="handleFormSubmit"></GalleryForm>
     </GalleryModal>
     <GalleryContainer :gallery="gallery" ></GalleryContainer>
   </div>
@@ -33,7 +33,6 @@
 <style scoped>
 
   .dashboard{
-    /* border: 1px solid red; */
     height: 100vh;
     width: 100%;
   }

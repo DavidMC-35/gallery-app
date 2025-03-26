@@ -1,5 +1,5 @@
 <template>
-    <div class="gallery-card">
+    <div class="gallery-card" @click="openImageModal">
         <img :src="file" alt="" class="card-image">
         <div class="card-content">
             <h3 class="card-title">{{ description }}</h3>
@@ -19,12 +19,22 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps, defineEmits } from 'vue';
 
 const isActive = ref(false);
+const emit = defineEmits(['open-modal']);
 
-const toggleActive = () => {
+const toggleActive = (event) => {
+    event.stopPropagation();
     isActive.value = !isActive.value;
+}
+
+const openImageModal = () => {
+    emit('open-modal', {
+        file: props.file,
+        description: props.description,
+        author: props.author
+    });
 }
 
 const props = defineProps({
