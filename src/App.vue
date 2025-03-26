@@ -33,7 +33,7 @@
 <style scoped>
 
   .dashboard{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 100vh;
     width: 100%;
   }

@@ -34,6 +34,7 @@ const emit = defineEmits(['close']);
     padding: 20px;
     border-radius: 12px;
     background-color: #222 ;
+    z-index: 9999;
 }
 
 .modal-content{

@@ -2,29 +2,42 @@
     <h2>Agregar Imagen</h2>
     <form @submit.prevent="submitForm">
         <div class="file-section">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#ffffff" d="M0 17.143V24h24v-6.857zm5.143 5.143H1.714v-1.714h3.429zm12-17.143h-3.429v8.571h-3.429V5.143H6.856L11.999 0z"/></svg>
             <div class="upload-options">
-                <button type="button" class="file-option" @click="handleUploadFile('subir')">Subir</button>
-                <button type="button" class="file-option" @click="handleUploadFile('insertar')">Insertar Enlace</button>
-                </div>
+                <button type="button" 
+                    class="file-option" 
+                    :class="{ active: fileOption === 'subir' }" 
+                    @click="handleUploadFile('subir')"
+                    >Subir
+                </button>
+                <button type="button" 
+                    class="file-option" 
+                    :class="{ active: fileOption === 'insertar' }" 
+                    @click="handleUploadFile('insertar')"
+                    >Insertar Enlace
+                </button>
+            </div>
             <div>
                 <input v-if="fileOption === 'subir'" type="file" @change="handleFileChange">
                 <input v-else v-model="imageURL" type="text" placeholder="Insertar enlace aquí">
             </div>
         </div>
 
-        <div class="field-data">
+        <div class="field-form">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M8 18h8v-2H8zm0-4h8v-2H8zm-2 8q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13h5l-5-5z"/></svg>
             <label for="">Descripcion</label>
             <textarea name="" v-model="description" id="description"></textarea>
         </div>
         
-        <div class="field-data">
+        <div class="field-form">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M17 9c0-1.381-.56-2.631-1.464-3.535C14.631 4.56 13.381 4 12 4s-2.631.56-3.536 1.465C7.56 6.369 7 7.619 7 9s.56 2.631 1.464 3.535C9.369 13.44 10.619 14 12 14s2.631-.56 3.536-1.465A4.98 4.98 0 0 0 17 9M6 19c0 1 2.25 2 6 2c3.518 0 6-1 6-2c0-2-2.354-4-6-4c-3.75 0-6 2-6 4"/></svg>
             <label for="">Autor</label>
             <input v-model="author" type="text">
         </div>
 
         <div>
             <button @click="closeModal" class="btn" id="close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/></svg></button>
-            <button type="submit">Subir</button>
+            <button type="submit" id="addBtn">Subir</button>
         </div>
     </form>
 </template>
@@ -36,7 +49,7 @@ import { defineEmits } from "vue"
 
 const emit = defineEmits(['newImage','close'])
 
-const fileOption = ref(""); 
+const fileOption = ref("subir"); 
 const selectedFile = ref(null); 
 const imageURL = ref(""); 
 const description = ref(""); 
@@ -48,7 +61,11 @@ const closeModal = () => {
 };
 
 const handleUploadFile = (option) => {
-    fileOption.value = option
+    fileOption.value = option;
+    // Si el usuario cambia a "insertar", limpiar el archivo seleccionado
+    if (option === "insertar") {
+        selectedFile.value = null;
+    }
 }
 
 const handleFileChange = (event) => {
@@ -133,14 +150,6 @@ const submitForm = () => {
     color: #ffffff;
 }
 
-
-.upload-options{
-    /* background-color: aqua; */
-    display: flex;
-    gap: 10px;
-    padding: 5px 10px;
-}
-
 .upload-options button{
     background-color: transparent;
     border: none;
@@ -148,15 +157,37 @@ const submitForm = () => {
     padding: 5px;
     color: #ffffff;
 }
+.upload-options {
+    display: flex;
+    gap: 10px;
+    padding: 5px 10px;
+}
 
-.file-option:hover{
-    border-radius:5px ;
+.file-option {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px 0px;
+    transition: all 0.3s ease-in-out;
+}
+
+.file-option:hover {
+    border-radius: 5px;
     background-color: rgba(211, 211, 211, 0.195);
 }
 
-.file-option:focus{
-    border-bottom: 1px solid white;
+.file-option.active {
+    background-color: #3b9e67;  
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
 }
+
 
 .file-section{
     padding: 25px 20px;
@@ -166,14 +197,8 @@ const submitForm = () => {
     margin: 10px;
 }
 
-#description{
-    width: 400px; 
-    height: 200px; 
-    resize: none;
-    border-radius: 8px;
-}
 
-.field-data{
+.field-form{
     border: solid 2px rgba(211, 211, 211, 0.2);
     border-radius: 10px;
     margin: 10px;
@@ -186,20 +211,53 @@ const submitForm = () => {
     /* margin-bottom: 15px; */
 }
 
-.field-data label{
+.field-form svg{
+    height: 25px;
+    width: 25px;
+}
+
+.field-form label{
     color: white;
 }
 
-.btn{
-    padding: 5px 10px;
-    background-color: #3b9e67;
-    border-radius: 12px;
-    border: none;
-    margin: 5px;
-    cursor: pointer;
+input[type="text"], 
+input[type="file"], 
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid rgba(211, 211, 211, 0.2); 
+    border-radius: 8px;  
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: white; 
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
+input[type="text"]:focus, 
+input[type="file"]:focus, 
+textarea:focus {
+    border-color: #3b9e67;  
+    background-color: rgba(255, 255, 255, 0.2); 
+    box-shadow: 0 0 5px rgba(59, 158, 103, 0.5); 
+}
+
+textarea {
+    height: 150px;
+    resize: none;
+}
+
+input::placeholder, 
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
 #close-btn{
+    border: none;
+    outline: none;
+    border-radius: 8px;
     background-color: tomato;
     position: absolute;
     top: 10px;
@@ -207,11 +265,12 @@ const submitForm = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     transition: all 0.3s;
 }
 
 #close-btn:hover svg{
-    transform: translateY(-2px);
+    transform: scale(1.1);
     transition: all 0.3s;
 
 }
@@ -220,80 +279,25 @@ const submitForm = () => {
     height: 25px;
     width: 25px;
     transition: all 0.3s;
-
 }
 
-/* .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5; 
-}
-
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+#addBtn{
+    margin-top: 10px;
+    padding: 10px 12px;
     width: 100%;
-    max-width: 400px; 
-}
-
-.form h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    cursor: pointer;
-    transition: border-color 0.3s;
-}
-
-input[type="file"]:hover {
-    border-color: #888;
-}
-
-.image-preview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-.image-preview img {
-    max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-button {
-    padding: 12px 20px;
-    border-radius: 8px;
     border: none;
-    background-color: crimson;
-    color: white;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    width: 100%;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: darkred;
-    transform: translateY(-2px); 
+#addBtn:hover{
+    background-color: #3b9e67;  
+    color: #ffffff;
+    /* transition: all 0.3s ease-in-out; */
 }
 
-button:active {
-    transform: translateY(0); 
-} */
+
+
 </style>

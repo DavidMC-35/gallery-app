@@ -30,10 +30,14 @@
 </script>
 
 <style scoped>
-    gallery-grid {
+.gallery-container {
+    width: 100%;
+}
+
+.gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
-    padding: 16px;
-    }
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 10px;
+    padding: 20px;
+}
 </style>
