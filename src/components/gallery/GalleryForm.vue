@@ -24,15 +24,19 @@
         </div>
 
         <div class="field-form">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M8 18h8v-2H8zm0-4h8v-2H8zm-2 8q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13h5l-5-5z"/></svg>
-            <label for="">Descripcion</label>
+            <div class="field-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M8 18h8v-2H8zm0-4h8v-2H8zm-2 8q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13h5l-5-5z"/></svg>
+                <label for="description">Descripcion</label>
+            </div>
             <textarea name="" v-model="description" id="description"></textarea>
         </div>
         
         <div class="field-form">
-            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M17 9c0-1.381-.56-2.631-1.464-3.535C14.631 4.56 13.381 4 12 4s-2.631.56-3.536 1.465C7.56 6.369 7 7.619 7 9s.56 2.631 1.464 3.535C9.369 13.44 10.619 14 12 14s2.631-.56 3.536-1.465A4.98 4.98 0 0 0 17 9M6 19c0 1 2.25 2 6 2c3.518 0 6-1 6-2c0-2-2.354-4-6-4c-3.75 0-6 2-6 4"/></svg>
-            <label for="">Autor</label>
-            <input v-model="author" type="text">
+            <div class="field-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24"><path fill="#ffffff" d="M17 9c0-1.381-.56-2.631-1.464-3.535C14.631 4.56 13.381 4 12 4s-2.631.56-3.536 1.465C7.56 6.369 7 7.619 7 9s.56 2.631 1.464 3.535C9.369 13.44 10.619 14 12 14s2.631-.56 3.536-1.465A4.98 4.98 0 0 0 17 9M6 19c0 1 2.25 2 6 2c3.518 0 6-1 6-2c0-2-2.354-4-6-4c-3.75 0-6 2-6 4"/></svg>
+                <label for="author">Autor</label>
+            </div>
+            <input v-model="author" type="text" id="author">
         </div>
         
         <div class="form-buttons">
@@ -202,20 +206,25 @@ const submitForm = () => {
     margin: 10px;
     padding: 10px 20px;
     display: flex;
-    justify-content: center;
-    align-items: start;
-    gap: 10px;
     flex-direction: column;
-    /* margin-bottom: 15px; */
+    gap: 10px;
 }
 
-.field-form svg{
+.field-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0px;
+}
+
+.field-header svg{
     height: 25px;
     width: 25px;
 }
 
 .field-form label{
     color: white;
+    font-weight: 500;
 }
 
 input[type="text"], 

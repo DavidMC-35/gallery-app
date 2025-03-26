@@ -58,7 +58,7 @@
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
-    gap: 10px;
+    gap: 15px;
     padding: 20px;
 }
 

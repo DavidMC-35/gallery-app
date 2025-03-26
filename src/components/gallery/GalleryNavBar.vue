@@ -5,7 +5,7 @@
         </div>
         <ul class="navbar-links">
             <li><a href="#home">Inicio</a></li>
-            <li><a href="#gallery">Editar</a></li>
+            <li><a href="#gallery">Favs</a></li>
         </ul>
 
         <div class="navbar-options">

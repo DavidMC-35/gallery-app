@@ -37,7 +37,7 @@ const closeModal = () => {
     height: auto;
     min-height: 400px;
     width: auto;
-    min-width: 500px;
+    min-width: 550px;
     padding: 20px;
     border-radius: 12px;
     background-color: #222 ;
@@ -47,6 +47,7 @@ const closeModal = () => {
 .modal-content{
     /* border: 1px solid black; */
     padding: 10px;
+    margin-top: 25px;
 }
 
 .modal-content h2{
@@ -66,7 +67,7 @@ const closeModal = () => {
     align-items: center;
     cursor: pointer;
     transition: all 0.3s;
-    padding: 5px;
+    padding: 8px;
 }
 
 .close-btn:hover svg {
