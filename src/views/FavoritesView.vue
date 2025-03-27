@@ -1,7 +1,7 @@
 <template>
-    <h1>Gallery</h1>
+    <h1>Favorites</h1>
     <GalleryContainer 
-        :gallery="gallery"
+        :gallery="favorites" 
         @toggle-favorite="$emit('toggle-favorite', $event)"
     ></GalleryContainer>
 </template>
@@ -10,7 +10,7 @@
 import GalleryContainer from '../components/gallery/GalleryContainer.vue';
 
 defineProps({
-    gallery: {
+    favorites: {
         type: Array,
         required: true
     }

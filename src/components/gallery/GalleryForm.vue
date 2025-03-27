@@ -57,6 +57,7 @@ const selectedFile = ref(null);
 const imageURL = ref(""); 
 const description = ref(""); 
 const author = ref("");
+const favorite = ref(false);
 
 const closeModal = () => {
     emit('close');
@@ -117,6 +118,7 @@ const submitForm = () => {
         file: imageSrc,
         description: description.value,
         author: author.value,
+        favorite: false,
         option:fileOption.value,    
         })
         

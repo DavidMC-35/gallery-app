@@ -4,8 +4,16 @@
             <h1>Dashboard</h1>
         </div>
         <ul class="navbar-links">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#gallery">Favs</a></li>
+            <li>
+                <router-link to="/">
+                    Inicio
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/favorites">
+                    Favs
+                </router-link>
+            </li>
         </ul>
 
         <div class="navbar-options">
@@ -16,12 +24,23 @@
 </template>
 
 <script setup>
+import { defineEmits, defineProps } from 'vue';
 
-import { defineEmits } from 'vue';
+const props = defineProps({
+    currentView: {
+        type: String,
+        default: 'all'
+    }
+});
 
-const emit = defineEmits(["open"])
+const emit = defineEmits(['open', 'toggle-view']);
+
 const handleAddImage = () => {
-    emit('open')
+    emit('open');
+};
+
+const changeView = (view) => {
+    emit('toggle-view', view);
 };
 </script>
 

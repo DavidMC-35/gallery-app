@@ -40,27 +40,32 @@ const closeModal = () => {
     min-width: 550px;
     padding: 20px;
     border-radius: 12px;
-    background-color: #222 ;
+    /* background-color: #222 ; */
     z-index: 9999;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 .modal-content{
-    /* border: 1px solid black; */
     padding: 10px;
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .modal-content h2{
     color: #ffffff;
 }
 
+
+
 .close-btn {
     border: none;
     outline: none;
     border-radius: 8px;
-    background-color: tomato;
+    background-color: rgb(251, 15, 62);
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
     display: flex;
     justify-content: center;
@@ -71,7 +76,7 @@ const closeModal = () => {
 }
 
 .close-btn:hover svg {
-    transform: scale(1.1);
+    transform: rotate(90deg);
     transition: all 0.3s;
 }
 
@@ -82,7 +87,6 @@ const closeModal = () => {
 }
 
 .upload-options{
-    /* background-color: aqua; */
     display: flex;
     gap: 10px;
     padding: 5px 10px;
@@ -114,17 +118,20 @@ const closeModal = () => {
 }
 
 #description{
-    width: 400px; /* Ancho fijo */
-    height: 200px; /* Alto fijo */
+    width: 400px; 
+    height: 200px; 
     resize: none;
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px;
 }
 
 .field-data{
     border: solid 2px rgba(211, 211, 211, 0.2);
     border-radius: 10px;
-    margin: 10px;
-    padding: 10px 20px;
+    margin: 10px 0;
+    padding: 15px;
     display: flex;
     justify-content: center;
     align-items: start;
