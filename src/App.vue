@@ -3,6 +3,7 @@
     <div class="main-content">
       <GalleryNav 
         @open="isModalOpen = true"
+        @search="searchQuery"
       ></GalleryNav>   
       
       <GalleryModal 
@@ -48,6 +49,14 @@
     //   console.log('Vista cambiada a:', view);
     // }
 
+
+    // Función para manejar la búsqueda
+    const searchQuery = (query) => {
+      console.log('Buscando:', query);
+      const filteredImages = gallery.value.filter(img => img.description.toLowerCase().includes(query.toLowerCase()));
+      console.log('Resultados de búsqueda:', filteredImages);
+    }
+
     //Función para identificar las imágenes favoritas en el array gallery
     const galleryFavorites = computed(() => {
       return gallery.value.filter(image => image.favorite === true);
@@ -68,13 +77,15 @@
       try {
         const response = await fetch('https://api.unsplash.com/photos?client_id=jYg8SlU2GU3GNjmgg4FSXztqZqfpxcoTC4Ll2jzFBB4&per_page=18');
         const data = await response.json();
-        
+        console.log('Respuesta de la API:', data);
+
         gallery.value = data.map(item => ({
           id: item.id,
           date: new Date(item.created_at).toLocaleDateString(),
           file: item.urls.regular,
           description: item.alt_description || 'Sin descripción',
           author: item.user.name,
+          profileImg: item.user.profile_image.large, 
           option: 'insertar',
           favorite: false,
         }));

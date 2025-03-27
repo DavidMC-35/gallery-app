@@ -9,11 +9,16 @@
                 :file="item.file"
                 :description="item.description"
                 :author="item.author"
+                :profileImg="item.profileImg" 
                 :option="item.option"
                 :favorite="item.favorite"
                 @open-modal="openModal"
                 @toggle-favorite="handleToggleFavorite"
             ></GalleryImage>
+
+            <div class="message" v-if="gallery.length === 0">
+                <p>No hay imágenes para mostrar.</p>
+            </div>
             
             <GalleryModal 
                 :isOpen="isModalOpen"
@@ -111,5 +116,11 @@
     font-size: 1rem;
 }
 
-
+.message {
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 1.2rem;
+    /* padding: 20px; */
+}
     </style>

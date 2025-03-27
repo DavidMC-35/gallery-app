@@ -3,14 +3,17 @@
         <img :src="file" alt="" class="card-image">
         <div class="card-content">
             <h3 class="card-title">{{ description }}</h3>
-            <p class="author">Autor: {{ author }}</p>
+            <div class="card-info">
+                <img :src="profileImg" alt="Autor" class="author-img"> 
+                <p class="author">Autor: {{ author }}</p>
+            </div>
         </div>
         <div class="card-menu">
             <button class="menu-btn" 
                     :class="{ 'active': favorite }" 
                     @click.stop="toggleFavorite">
                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24">
-                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2c-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2c-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/> 
                 </svg>
             </button>
         </div>
@@ -42,6 +45,10 @@ const props = defineProps({
     favorite: {
         type: Boolean,
         default: false
+    },
+    profileImg: {
+        type: String,
+        required: true, 
     }
 });
 
@@ -83,6 +90,10 @@ const openImageModal = () => {
 
 .card-content {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
 }
 
 .card-title {
@@ -122,5 +133,18 @@ const openImageModal = () => {
 
 .menu-btn.active svg {
     color: crimson;
+}
+
+.author-img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin: 15px 0;
+}
+
+.card-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 </style>
