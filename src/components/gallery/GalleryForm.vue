@@ -72,11 +72,11 @@ const handleUploadFile = (option) => {
 }
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file) {
-    selectedFile.value = file;
-    imageURL.value = URL.createObjectURL(file); // Genera una URL temporal para la imagen
-  }
+    const file = event.target.files[0];
+    if (file) {
+        selectedFile.value = file;
+        imageURL.value = URL.createObjectURL(file); // Genera una URL temporal para la imagen
+    }
 };
 
 const submitForm = () => {
@@ -152,8 +152,51 @@ const submitForm = () => {
 
 .modal-content h2{
     color: #ffffff;
+    animation: fadeInDown 0.5s ease-out;
 }
 
+.file-section, .field-form, .form-buttons {
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.file-section {
+    animation-delay: 0.1s;
+}
+
+.field-form:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.field-form:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.form-buttons {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .upload-options button{
     background-color: transparent;
     border: none;

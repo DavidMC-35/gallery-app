@@ -1,12 +1,15 @@
 <template>
-    <div v-if="isOpen" class="modal">
-        <button @click="closeModal" class="close-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-                <path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/>
-            </svg>
-        </button>
-        <div class="modal-content">
-            <slot></slot>
+    <div v-if="isOpen" class="modal-container">
+        <div class="modal-backdrop"></div>
+        <div class="modal">
+            <button @click="closeModal" class="close-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                    <path fill="#ffffff" d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/>
+                </svg>
+            </button>
+            <div class="modal-content">
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -29,35 +32,83 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-.modal{
+.modal-container {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 9998;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal {
+    position: relative;
     height: auto;
     min-height: 400px;
     width: auto;
     min-width: 550px;
     padding: 20px;
     border-radius: 12px;
-    /* background-color: #222 ; */
-    z-index: 9999;
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(23, 23, 23, 0.686);
     border: 1px solid rgba(255, 255, 255, 0.125);
+    z-index: 9999;
+    animation: slideDown 0.4s ease-out;
 }
 
-.modal-content{
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content {
+    animation: contentFadeIn 0.2s ease-in-out 0.2s both;
     padding: 10px;
     margin-top: 20px;
 }
 
-.modal-content h2{
-    color: #ffffff;
+
+@keyframes contentFadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
+.modal-content h2 {
+    color: #ffffff;
+}
 
 .close-btn {
     border: none;
@@ -86,13 +137,13 @@ const closeModal = () => {
     transition: all 0.3s;
 }
 
-.upload-options{
+.upload-options {
     display: flex;
     gap: 10px;
     padding: 5px 10px;
 }
 
-.upload-options button{
+.upload-options button {
     background-color: transparent;
     border: none;
     outline: none;
@@ -100,24 +151,23 @@ const closeModal = () => {
     color: #ffffff;
 }
 
-.file-option:hover{
-    border-radius:5px ;
+.file-option:hover {
+    border-radius: 5px;
     background-color: rgba(211, 211, 211, 0.195);
 }
 
-.file-option:focus{
+.file-option:focus {
     border-bottom: 1px solid white;
 }
 
-.file-section{
+.file-section {
     padding: 25px 20px;
-    /* background-color: #c2b5b5; */
     border: solid 2px rgba(211, 211, 211, 0.2);
     border-radius: 10px;
     margin: 10px;
 }
 
-#description{
+#description {
     width: 400px; 
     height: 200px; 
     resize: none;
@@ -127,7 +177,7 @@ const closeModal = () => {
     padding: 10px;
 }
 
-.field-data{
+.field-data {
     border: solid 2px rgba(211, 211, 211, 0.2);
     border-radius: 10px;
     margin: 10px 0;
@@ -137,10 +187,9 @@ const closeModal = () => {
     align-items: start;
     gap: 10px;
     flex-direction: column;
-    /* margin-bottom: 15px; */
 }
 
-.field-data label{
+.field-data label {
     color: white;
 }
 </style>

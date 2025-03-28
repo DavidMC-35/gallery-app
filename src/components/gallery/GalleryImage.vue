@@ -2,7 +2,7 @@
     <div class="gallery-card" @click="openImageModal">
         <img :src="file" alt="" class="card-image">
         <div class="card-content">
-            <h3 class="card-title">{{ description }}</h3>
+                <h3 class="card-title">{{ description }}</h3>
             <div class="card-info">
                 <img :src="profileImg" alt="Autor" class="author-img"> 
                 <p class="author">Autor: {{ author }}</p>
@@ -147,4 +147,15 @@ const openImageModal = () => {
     align-items: center;
     justify-content: space-between;
 }
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    opacity: 0;
+}
+
 </style>

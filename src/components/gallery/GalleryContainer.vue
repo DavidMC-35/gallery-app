@@ -13,7 +13,7 @@
                 :option="item.option"
                 :favorite="item.favorite"
                 @open-modal="openModal"
-                @toggle-favorite="handleToggleFavorite"
+                @toggle-favorite="handleToggleFavorite" 
             ></GalleryImage>
 
             <div class="message" v-if="gallery.length === 0">
@@ -23,52 +23,51 @@
             <GalleryModal 
                 :isOpen="isModalOpen"
                 @close="isModalOpen = false">
-                <div class="modal-image-container">
+                    <div class="modal-image-container">
                     <img :src="selectedImage.file" alt="Imagen en grande" class="modal-image" /> 
-                    <div class="modal-image-info">
-                        <h3>{{ selectedImage.description }}</h3>
-                        <p>Autor: {{ selectedImage.author }}</p>
+                            <div class="modal-image-info">
+                                <h3>{{ selectedImage.description }}</h3>
+                                <p>Autor: {{ selectedImage.author }}</p>
+                            </div>
                     </div>
-                </div>
             </GalleryModal>
-        </div>
+        </div> 
     </div>
-    </template>
-    
-    <script setup>
-    
-        import { ref, defineProps, defineEmits } from 'vue';
-        import GalleryImage from './GalleryImage.vue'
-        import GalleryModal from './GalleryModal.vue'
+</template>
 
-        const emit = defineEmits(['toggle-favorite']);
-        
-        const isModalOpen = ref(false);
-        const selectedImage = ref({
-            file: '',
-            description: '',
-            author: ''
-        });
-        
-        const props = defineProps({
-            gallery: {
-                type: Array,
-                required: true
-            }
-        });
+
+<script setup>
     
-        const openModal = (image) => {
-            selectedImage.value = image;
-            isModalOpen.value = true;
-        };
+    import { ref, defineProps, defineEmits, watch } from 'vue';
+    import GalleryImage from './GalleryImage.vue'
+    import GalleryModal from './GalleryModal.vue'
 
-        // Modificar esta función para emitir el evento al componente padre
-        const handleToggleFavorite = (imageId) => {
-            emit('toggle-favorite', imageId);
-        };
+    const emit = defineEmits(['toggle-favorite']);
+    
+    const isModalOpen = ref(false);
+    // const showInfo = ref(false);
+    const selectedImage = ref({
+        file: '',
+        description: '',
+        author: ''
+    });
+    
+    const props = defineProps({
+        gallery: {
+            type: Array,
+            required: true
+        }
+    });
 
-        // Eliminar o modificar la función addFavorite que no se está usando correctamente
-    </script>
+    const openModal = (image) => {
+        selectedImage.value = image;
+        isModalOpen.value = true;
+    };
+
+    const handleToggleFavorite = (imageId) => {
+        emit('toggle-favorite', imageId);
+    }; 
+</script>
     
 <style scoped>
 .gallery-container {
@@ -96,23 +95,46 @@
     object-fit: contain;
     border-radius: 8px;
     margin-bottom: 15px;
+    animation: imageZoomIn 0.6s ease-out;
 }
 
 .modal-image-info {
     width: 100%;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(242, 242, 242, 0.9);
     border-radius: 8px;
     margin-top: 0;
+    animation: slideUp 0.5s ease-out 0.3s both;
 }
 
+@keyframes imageZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .modal-image-info h3 {
     margin-bottom: 10px;
-    color: #fff;
+    color: black;
     font-size: 1.2rem;
 }
 .modal-image-info p {
-    color: #fff;
+    color: black;
     font-size: 1rem;
 }
 
@@ -123,4 +145,20 @@
     font-size: 1.2rem;
     /* padding: 20px; */
 }
-    </style>
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.slide-fade-enter-from {
+    opacity: 0;
+    transform: translateY(20px); 
+}
+
+.slide-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-20px); 
+}
+    
+
+</style>
